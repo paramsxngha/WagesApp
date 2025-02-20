@@ -4,18 +4,36 @@ class Program
 {
     //Global Variables
     static List<string> DAYS = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-    
+    static readonly float PAYRATE = 22.00f;
+
 
     //Methods or Functions
+
+    static float CalculateWages(List<int> hrsWorked)
+    {
+        return Math.Round(Convert.ToDecimal)(SumHoursWorked(hrsWorked) * PAYRATE,) 2);
+    }
+     static int SumHoursWorked(List<int> hrsWorked)
+    {
+        int SumHoursWorked = 0;
+
+        foreach (int hour in hrsWorked)
+        {
+            SumHoursWorked += hour;
+        }
+
+        return SumHoursWorked;
+    }
+
     static void OneEmployee()
     {
         //local variables
-        string employeename;
+        string employeeName;
         List<int> hoursWorked = new List<int>();
 
         //Input employee name
         Console.WriteLine("Enter The Employee's Name:/n");
-        employeename = Console.ReadLine();
+        employeeName = Console.ReadLine();
 
         //Input the number of hours worked for each day
         foreach (string day in DAYS)
@@ -31,7 +49,7 @@ class Program
 
         //Determine if employee qualifies for a bonus (>30 hours for the week)
 
-        //If employee qualifies for a bonus add bonus to weekly pay
+        //If employee qualifies for a bonus, add bonus to weekly pay
 
         //Calculate tax (pay <450 then 7.5% tax else tax =8%)
 
@@ -44,9 +62,9 @@ class Program
     {
         OneEmployee();
 
-        //Display total amount payed to all employees
+        //Display total amount paiyed to all employees
 
-        //Display highest payed employee
+        //Display highest paiyed employee
 
 
     }
