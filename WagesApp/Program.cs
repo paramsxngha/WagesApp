@@ -8,36 +8,57 @@ class Program
     static readonly float PAYRATE = 22.00f, TAXA = 0.075f, TAXB = 0.08f;
    
     //Methods or Functions
+    static string FormatToDollar(float value)
+    {
+        return string.Format({"0:0.00" }, value);
+    }
 
+    static string PaySummary(string name, List<int> hrsWorked)
+    {
+      return "----- Pay Summary -----\n" +
+            $"Employee Name: {name}\n" +
+            $"Hours Worked: {SumHoursWorked(hrsWorked)}\n" +
+            $"Bonus Owed: ${CalculateBonus(hrsWorked)}\n" +
+            $"Gross Pay: ${(CalculateWages(hrsWorked) + CalculateBonus(hrsWorked))}\n" +
+            $"Net Pay: ${CalculateWages(hrsWorked) + CalculateBonus(hrsWorked) - CalculateTax(hrsWorked)}\n" +
+            $"Tax Owed: ${CalculateTax(hrsWorked)}";
+    }
+    //Calculate tax (pay <450 then 7.5% tax else tax =8%
     static float CalculateTax(List<int> hrsWorked)
+            //Calculate weekly wages (total hours x pay rate)
     {
 
 
 
         if(CalculateWages(hrsWorked)+CalculateBonus(hrsWorked)< 450)
         {
-            return (CalculateWages(hrsWorked) + CalculateBonus(hrsWorked)) * TAXA;
+            return (float)Math.Round((CalculateWages(hrsWorked) + CalculateBonus(hrsWorked)) * TAXA);
         }
 
-        return (CalculateWages(hrsWorked) + CalculateBonus(hrsWorked)) * TAXB;
+        return (float)Math.Round((CalculateWages(hrsWorked) + CalculateBonus(hrsWorked)) * TAXB);
 
 
     }
+
+    // Determine if employee qualifies for a bonus (>30 hours for the week)
+
     static float CalculateBonus(List<int> hrsWorked)
     {
 
         if (SumHoursWorked(hrsWorked) > 30)
         {
-            return 5 * PAYRATE;
+            return (float)Math.Round(5 * PAYRATE, 2);
         }
 
         return 0;
 
     }
 
+    //Calculate weekly wages (total hours x pay rate)
     static float CalculateWages(List<int> hrsWorked)
     {
         return (float)Math.Round(SumHoursWorked(hrsWorked) * PAYRATE, 2);
+     //Calculate total hours worked
     }
     static int SumHoursWorked(List<int> hrsWorked)
     {
@@ -67,25 +88,13 @@ class Program
             Console.WriteLine($"Enter the hours worked on {day}:");
             hoursWorked.Add(int.Parse(Console.ReadLine()));
         }
+        
 
-
-        //Calculate total hours worked
-        Console.WriteLine($"Total Hours Worked:{SumHoursWorked(hoursWorked)} ");
-
-        //Calculate weekly wages (total hours x pay rate)
-        Console.WriteLine($"Wages for the week: ${CalculateWages(hoursWorked)}");
-
-        //Determine if employee qualifies for a bonus (>30 hours for the week)
-        Console.WriteLine($"Bonus: ${CalculateBonus(hoursWorked)}");
-        //If employee qualifies for a bonus, add bonus to weekly pay
-
-
-        //Calculate tax (pay <450 then 7.5% tax else tax =8%)
-        Console.WriteLine($"Taxed Owed: ${CalculateTax(hoursWorked)}");
-
-        Console.ReadLine();
 
         //Display employees pay summary
+        Console.WriteLine(PaySummary(employeeName, hoursWorked));
+
+        Console.ReadLine();
     }
 
     //When Run...
