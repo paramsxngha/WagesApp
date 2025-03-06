@@ -1,4 +1,6 @@
-﻿namespace WagesApp;
+﻿using System.Globalization;
+
+namespace WagesApp;
 
 class Program
 {
@@ -6,8 +8,27 @@ class Program
     static List<string> DAYS = new List<string>() { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     //Constant Variable
     static readonly float PAYRATE = 22.00f, TAXA = 0.075f, TAXB = 0.08f;
-   
+
     //Methods or Functions
+
+    static int CheckHoursWorked(string day)
+    {
+        while (true)
+        {
+            Console.WriteLine($"Enter the hours worked on {day}:");
+            int hoursWorked = Convert.ToInt32(Console.ReadLine());
+
+        }
+    }
+
+    static string CheckName(string name)
+    {
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+        return textInfo.ToTitleCase(name);
+    }
+
+  
     static string FormatToDollar(float value)
     {
         return string.Format("{0:0.00}", value);
@@ -81,7 +102,7 @@ class Program
 
         //Input employee name
         Console.WriteLine("Enter The Employee's Name:/n");
-        employeeName = Console.ReadLine();
+        employeeName = CheckName(Console.ReadLine());
 
         //Input the number of hours worked for each day
         foreach (string day in DAYS)
