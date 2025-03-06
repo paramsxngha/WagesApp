@@ -10,18 +10,19 @@ class Program
     //Methods or Functions
     static string FormatToDollar(float value)
     {
-        return string.Format({"0:0.00" }, value);
+        return string.Format("{0:0.00}", value);
     }
+
 
     static string PaySummary(string name, List<int> hrsWorked)
     {
       return "----- Pay Summary -----\n" +
             $"Employee Name: {name}\n" +
             $"Hours Worked: {SumHoursWorked(hrsWorked)}\n" +
-            $"Bonus Owed: ${CalculateBonus(hrsWorked)}\n" +
-            $"Gross Pay: ${(CalculateWages(hrsWorked) + CalculateBonus(hrsWorked))}\n" +
-            $"Net Pay: ${CalculateWages(hrsWorked) + CalculateBonus(hrsWorked) - CalculateTax(hrsWorked)}\n" +
-            $"Tax Owed: ${CalculateTax(hrsWorked)}";
+            $"Bonus Owed: ${FormatToDollar(CalculateBonus(hrsWorked))}\n" +
+            $"Gross Pay: ${FormatToDollar(CalculateWages(hrsWorked) + CalculateBonus(hrsWorked))}\n" +
+            $"Net Pay: ${FormatToDollar(CalculateWages(hrsWorked) + CalculateBonus(hrsWorked) - CalculateTax(hrsWorked))}\n" +
+            $"Tax Owed: ${FormatToDollar(CalculateTax(hrsWorked))}";
     }
     //Calculate tax (pay <450 then 7.5% tax else tax =8%
     static float CalculateTax(List<int> hrsWorked)
