@@ -18,6 +18,13 @@ class Program
             Console.WriteLine($"Enter the hours worked on {day}:");
             int hoursWorked = Convert.ToInt32(Console.ReadLine());
 
+            if(hoursWorked >= 0 && hoursWorked  <= 24)
+            {
+                return hoursWorked;
+            }
+
+            Console.WriteLine("Error: Hours worked must de between 0 and 24");
+
         }
     }
 
@@ -107,8 +114,7 @@ class Program
         //Input the number of hours worked for each day
         foreach (string day in DAYS)
         {
-            Console.WriteLine($"Enter the hours worked on {day}:");
-            hoursWorked.Add(int.Parse(Console.ReadLine()));
+            hoursWorked.Add(CheckHoursWorked(day));
         }
         
 
